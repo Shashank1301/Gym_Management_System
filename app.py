@@ -34,12 +34,12 @@ def home_page():
 @app.route('/adminlogin', methods=['GET','POST'])
 def admin_page():
     if request.method == "POST":
-       email=request.form.get('adminemail')
+       username=request.form.get('adminusername')
        password=request.form.get('adminpassword')
-       if (email == 'admin123@gmail.com' and password == 'admin'):
+       if (username == 'admin' and password == 'admin123'):
            return redirect(url_for('about_page'))
        else:
-           print('Invalid Email or Password')
+           print('Invalid Username or Password')
            return render_template('admin.html')
 
     return render_template('admin.html')
