@@ -31,9 +31,19 @@ class User(UserMixin,db.Model):
 def home_page():
     return render_template('home.html')
 
-@app.route('/adminlogin')
+@app.route('/adminlogin', methods=['GET','POST'])
 def admin_page():
+    if request.method == "POST":
+       email=request.form.get('adminemail')
+       password=request.form.get('adminpassword')
+       if (email == 'admin123@gmail.com' and password == 'admin'):
+           return redirect(url_for('about_page'))
+       else:
+           print('Invalid Email or Password')
+           return render_template('admin.html')
+
     return render_template('admin.html')
+
 
 @app.route('/usersignup', methods=['GET','POST'])
 def user_signin():
