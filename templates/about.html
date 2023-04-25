@@ -6,5 +6,11 @@
 {% block body %}
 
 <h4>This Is About Us Page</h4>
+<script>
+    var is_admin = {{admin}};
+    if(is_admin){
+    $("#nav_home").show();
+    } else {$("#nav_home").hide();}
+</script>
 
 {% endblock body %}

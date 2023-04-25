@@ -31,8 +31,17 @@ class User(UserMixin,db.Model):
 def home_page():
     return render_template('home.html')
 
-@app.route('/adminlogin')
+@app.route('/adminlogin', methods=['GET','POST'])
 def admin_page():
+    if request.method == "POST":
+       username=request.form['adminusername']
+       password=request.form['adminpassword']
+       if (username == 'admin' and password == 'admin123'):
+           return redirect(url_for('about_page', admin='true'))
+       else:
+           print('Invalid Username or Password')
+           return render_template('admin.html')
+
     return render_template('admin.html')
 
 @app.route('/usersignup', methods=['GET','POST'])
