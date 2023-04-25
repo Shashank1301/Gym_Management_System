@@ -18,7 +18,7 @@ login_manager.login_view='user_login'
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:@127.0.0.1:4306/gym'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql://jthayil:redhat@127.0.0.1:3306/db_gym'
 db=SQLAlchemy(app)
 
 class User(UserMixin,db.Model):
@@ -34,15 +34,16 @@ def home_page():
 @app.route('/adminlogin', methods=['GET','POST'])
 def admin_page():
     if request.method == "POST":
-       username=request.form['adminusername']
-       password=request.form['adminpassword']
+       username=request.form.get('adminusername')
+       password=request.form.get('adminpassword')
        if (username == 'admin' and password == 'admin123'):
-           return redirect(url_for('about_page', admin='true'))
+           return render_template('about.html', admin="true")
        else:
            print('Invalid Username or Password')
            return render_template('admin.html')
 
     return render_template('admin.html')
+
 
 @app.route('/usersignup', methods=['GET','POST'])
 def user_signin():
@@ -70,10 +71,11 @@ def user_login():
        email=request.form.get('useremail')
        password = request.form.get('userpassword')
        user=User.query.filter_by(email=email).first()
-
-       if user and check_password_hash(user.password,password):
+       if (email == 'admin' and password == 'admin123'):
+           return render_template('about.html', admin="true")
+       elif user and check_password_hash(user.password,password):
           login_user(user)
-          return redirect(url_for('about_page'))
+          return render_template('about.html', admin="false")
        else:
            return ('Invalid Credentials')
            return render_template('user_login.html')

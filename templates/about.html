@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% block title %} About Page {% endblock title %}
-
-
 {% block body %}
-
 <h4>This Is About Us Page</h4>
+{% endblock body %}
+{% block script %}
+
 <script>
     var is_admin = {{admin}};
     if(is_admin){
-    $("#nav_home").show();
-    } else {$("#nav_home").hide();}
+    $("#nav_home").hide();
+    } else {$("#nav_home").show();}
 </script>
 
-{% endblock body %}
+{% endblock script %}
