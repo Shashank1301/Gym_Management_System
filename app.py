@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,redirect,url_for,session
+from flask import Flask,render_template,request,redirect,url_for,session,flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
@@ -9,19 +9,19 @@ from flask_login import login_required,current_user
 app=Flask(__name__)
 app.secret_key='mysecretkey'
 
-# For getting unique user access
-login_manager=LoginManager(app)
-login_manager.login_view='user_login'
 
+login_manager=LoginManager(app)
+login_manager.login_view='admin_login'
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return Admin.query.get(int(user_id))
+
 
 app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:@127.0.0.1:4306/gym'
 db=SQLAlchemy(app)
 
-class User(UserMixin,db.Model):
+class Admin(UserMixin,db.Model):
     id=db.Column(db.Integer,primary_key=True)
     username=db.Column(db.String(50))
     email=db.Column(db.String(50),unique=True)
@@ -31,68 +31,70 @@ class User(UserMixin,db.Model):
 def home_page():
     return render_template('home.html')
 
-@app.route('/adminlogin', methods=['GET','POST'])
-def admin_page():
+@app.route('/adminsignup', methods=['GET','POST'])
+def admin_signup():
     if request.method == "POST":
-       username=request.form['adminusername']
-       password=request.form['adminpassword']
-       if (username == 'admin' and password == 'admin123'):
-           return redirect(url_for('about_page', admin='true'))
-       else:
-           print('Invalid Username or Password')
-           return render_template('admin.html')
+       username=request.form.get('signupname')
+       email=request.form.get('signupemail')
+       password=request.form.get('signuppassword')
+       admin=Admin.query.filter_by(email=email).first()
 
-    return render_template('admin.html')
-
-@app.route('/usersignup', methods=['GET','POST'])
-def user_signin():
-    if request.method == "POST":
-       username=request.form.get('username')
-       email=request.form.get('email')
-       password=request.form.get('password')
-       user=User.query.filter_by(email=email).first()
-
-       if user:
-           print('Email Already Exists')
-           return render_template('user_login.html')
+       if admin:
+           flash('Email Already Exists','warning')
+           return render_template('admin_login.html')
        enc_password=generate_password_hash(password)
-       new_user=User(username=username,email=email,password=enc_password)
-       db.session.add(new_user)
+       new_admin=Admin(username=username,email=email,password=enc_password)
+       db.session.add(new_admin)
        db.session.commit()
-       login_user(new_user)
-       return redirect(url_for('about_page'))
+       login_user(new_admin)
+       flash('Sign Up Success','success')
+       return redirect(url_for('members_page'))
 
-    return render_template('user_signup.html')
+    return render_template('admin_signup.html')
 
-@app.route('/userlogin', methods=['GET','POST'])
-def user_login():
+@app.route('/adminlogin', methods=['GET','POST'])
+def admin_login():
     if request.method == "POST":
-       email=request.form.get('useremail')
-       password = request.form.get('userpassword')
-       user=User.query.filter_by(email=email).first()
+       email=request.form.get('loginemail')
+       password = request.form.get('loginpassword')
+       admin=Admin.query.filter_by(email=email).first()
 
-       if user and check_password_hash(user.password,password):
-          login_user(user)
-          return redirect(url_for('about_page'))
+       if admin and check_password_hash(admin.password,password):
+          login_user(admin)
+          flash('Login Success','primary')
+          return redirect(url_for('members_page'))
        else:
-           return ('Invalid Credentials')
-           return render_template('user_login.html')
+           flash('Invalid Credentials','danger')
+           return render_template('admin_login.html')
 
-    return render_template('user_login.html')
-
-@app.route('/userlogout')
-@login_required
-def user_logout():
-    logout_user()
-    return redirect(url_for('user_login'))
+    return render_template('admin_login.html')
 
 @app.route('/about')
 def about_page():
     return render_template('about.html')
 
-@app.route('/contact')
-def contact_page():
-    return render_template('contact.html')
+@app.route('/members')
+def members_page():
+    return render_template('members.html')
+
+@app.route('/equipments')
+def equipments_page():
+    return render_template('equipments.html')
+
+@app.route('/trainers')
+def trainers_page():
+    return render_template('trainers.html')
+
+@app.route('/payment')
+def payment_page():
+    return render_template('payment.html')
+
+@app.route('/adminlogout')
+@login_required
+def admin_logout():
+    logout_user()
+    flash('Logout Successful','warning')
+    return redirect(url_for('admin_login'))
 
 if __name__ =="__main__":
     app.run(debug=True)
