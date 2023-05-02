@@ -1,0 +1,59 @@
+{% extends 'navigationbar.html' %}
+
+{% block title %} Edit Members Page {% endblock title %}
+
+
+{% block body %}
+
+       {% with messages=get_flashed_messages(with_categories=true) %}
+       {% if messages %}
+       {% for category, message in messages %}
+
+       <div class="alert alert-{{category}} alert-dismissible show" role="alert">
+         <strong>{{message}}</strong>
+
+           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+           </button>
+       </div>
+
+       {% endfor %}
+       {% endif %}
+       {% endwith %}
+
+<div class="container d-flex justify-content-center">
+  <div class=" col-md-7 p-5">
+    <h5 class="p-2 bg-success bg-gradient text-center rounded border text-white"; style="font-family:georgia">Update Members</h5>
+    <br>
+
+    <form action="/edit/{{posts.mid}}" method="post">
+        <label><b>Name</b></label>
+        <input type="text" name="name" class="form-control" placeholder="Name" value={{posts.name}} required>
+        <label><b>Email</b></label>
+        <input type="email" name="email" class="form-control" placeholder="Email" value={{posts.email}} required>
+        <label><b>Contact</b></label>
+        <input type="text" name="contact" class="form-control" placeholder="Contact" value={{posts.contact}} required>
+        <label><b>Age</b></label>
+        <input type="text" name="age" class="form-control" placeholder="Age" value={{posts.age}} required>
+        <label><b>Slot</b></label>
+          <select class="form-control" id="slot" name="slot" required>
+             <option selected>{{posts.slot}}</option>
+             <option value="Morning">Morning</option>
+             <option value="Evening">Evening</option>
+             <option value="Night">Night</option>
+          </select>
+        <label><b>Address</b></label>
+        <input type="text" name="address" class="form-control" placeholder="Address" value={{posts.address}} required>
+        <label><b>Date Of Join</b></label>
+        <input type="date" name="joindate" class="form-control" placeholder="Date Of Join" value={{posts.date}} required>
+        <br>
+        <div class="text-center">
+           <button type="submit" class="btn btn-primary text-white rounded-pill w-75">UPDATE</button>
+        </div>
+
+    </form>
+
+  </div>
+</div>
+
+
+{% endblock body %}

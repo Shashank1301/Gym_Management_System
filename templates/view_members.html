@@ -1,0 +1,57 @@
+{% extends 'navigationbar.html' %}
+
+{% block title %} View Members  {% endblock title %}
+
+
+{% block body %}
+
+
+
+<div class="container d-flex justify-content-center">
+  <div class=" col-md-12 p-5">
+    <h5 class="p-2 bg-primary bg-gradient text-center rounded border text-white"; style="font-family:georgia">View Members</h5>
+    <br>
+      <table class="table">
+  <thead>
+    <tr class="table-warning">
+      <th scope="col">MEMBER ID</th>
+      <th scope="col">NAME</th>
+      <th scope="col">EMAIL</th>
+      <th scope="col">CONTACT</th>
+      <th scope="col">AGE</th>
+      <th scope="col">SLOTS</th>
+      <th scope="col">ADDRESS</th>
+      <th scope="col">DATE OF JOIN</th>
+      <th scope="col">UPDATE</th>
+      <th scope="col">DELETE</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for post in query %}
+    <tr class="table-primary">
+      <th scope="row">{{post.mid}}</th>
+      <td>{{post.name}}</td>
+      <td>{{post.email}}</td>
+      <td>{{post.contact}}</td>
+      <td>{{post.age}}</td>
+      <td>{{post.slot}}</td>
+      <td>{{post.address}}</td>
+      <td>{{post.date}}</td>
+      <td> <a href="/edit/{{post.mid}}"> <button class="btn btn-success">UPDATE</button> </a> </td>
+      <td> <a href="/delete/{{post.mid}}"> <button onclick="return confirm('Are You Sure To Delete Data');"
+           class="btn btn-danger">DELETE</button> </a> </td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+{% endblock body %}

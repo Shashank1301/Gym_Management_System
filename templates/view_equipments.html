@@ -1,0 +1,45 @@
+{% extends 'navigationbar.html' %}
+
+{% block title %} View Equipments {% endblock title %}
+
+
+{% block body %}
+
+<div class="container d-flex justify-content-center">
+  <div class=" col-md-13 p-5">
+    <h5 class="p-2 bg-primary bg-gradient text-center rounded border text-white"; style="font-family:georgia">View Equipments</h5>
+    <br>
+      <table class="table">
+  <thead>
+    <tr class="table-warning">
+      <th scope="col">EQ. ID</th>
+      <th scope="col">EQUIPMENT NAME</th>
+      <th scope="col">PRICE</th>
+      <th scope="col">UNITS</th>
+      <th scope="col">PURCHASE</th>
+      <th scope="col">DESCRIPTION</th>
+      <th scope="col">UPDATE</th>
+      <th scope="col">DELETE</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for post in query %}
+    <tr class="table-primary">
+      <th scope="row">{{post.eid}}</th>
+      <td>{{post.name}}</td>
+      <td>{{post.price}}</td>
+      <td>{{post.unit}}</td>
+      <td>{{post.date}}</td>
+      <td>{{post.description}}</td>
+      <td> <a href="/editequipments/{{post.eid}}"> <button class="btn btn-success">UPDATE</button> </a> </td>
+      <td> <a href="/deleteequipments/{{post.eid}}"> <button onclick="return confirm('Are You Sure To Delete Data');"
+           class="btn btn-danger">DELETE</button> </a> </td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+
+  </div>
+</div>
+
+{% endblock body %}
