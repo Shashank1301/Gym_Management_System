@@ -1,0 +1,48 @@
+{% extends 'navigationbar.html' %}
+
+{% block title %} Edit Equipments {% endblock title %}
+{% block body %}
+
+       {% with messages=get_flashed_messages(with_categories=true) %}
+       {% if messages %}
+       {% for category, message in messages %}
+
+       <div class="alert alert-{{category}} alert-dismissible show" role="alert">
+         <strong>{{message}}</strong>
+
+           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+           </button>
+       </div>
+
+       {% endfor %}
+       {% endif %}
+       {% endwith %}
+
+
+<div class="container d-flex justify-content-center">
+  <div class=" col-md-7 p-5">
+    <h5 class="p-2 bg-success bg-gradient text-center rounded border text-white"; style="font-family:georgia">Update Equipments</h5>
+    <br>
+
+    <form action="/editequipments/{{posts.eid}}" method="post">
+        <label><b>Equipment Name</b></label>
+        <input type="text" name="equipmentname" class="form-control" placeholder="Equipment" value="{{posts.name}}" required>
+        <label><b>Price(In Rs.)</b></label>
+        <input type="text" name="price" class="form-control" placeholder="Price" value="{{posts.price}}" required>
+        <label><b>Unit</b></label>
+        <input type="text" name="unit" class="form-control" placeholder="Units" value="{{posts.unit}}" required>
+        <label><b>Date Of Purchase</b></label>
+        <input type="date" name="purchasedate" class="form-control" placeholder="Date Of Purchase" value="{{posts.date}}" required>
+        <label><b>Description</b></label>
+        <textarea name="description" class="form-control" placeholder="Add Description" value="{{posts.description}}" required></textarea>
+        <br>
+        <div class="text-center">
+           <button type="submit" class="btn btn-primary rounded-pill w-75">UPDATE</button>
+        </div>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock body %}

@@ -1,0 +1,57 @@
+{% extends 'navigationbar.html' %}
+
+{% block title %} Add Trainers {% endblock title %}
+
+
+{% block body %}
+
+       {% with messages=get_flashed_messages(with_categories=true) %}
+       {% if messages %}
+       {% for category, message in messages %}
+
+       <div class="alert alert-{{category}} alert-dismissible show" role="alert">
+         <strong>{{message}}</strong>
+
+           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+           </button>
+       </div>
+
+       {% endfor %}
+       {% endif %}
+       {% endwith %}
+
+<div class="container d-flex justify-content-center">
+  <div class=" col-md-7 p-5">
+    <h5 class="p-2 bg-primary bg-gradient text-center rounded border text-white"; style="font-family:georgia">Add Trainers</h5>
+    <br>
+
+    <form action="/addtrainers" method="post">
+        <label><b>Trainer Name</b></label>
+        <input type="text" name="name" class="form-control" placeholder="Name" required>
+        <label><b>Email</b></label>
+        <input type="email" name="email" class="form-control" placeholder="Email" required>
+        <label><b>Contact</b></label>
+        <input type="text" name="contact" class="form-control" placeholder="Contact" required>
+        <label><b>Years Of Experience</b></label>
+        <input type="text" name="experience" class="form-control" placeholder="Years Of Experience" required>
+        <label><b>Availability</b></label>
+          <select class="form-control" id="availability" name="availability" required>
+             <option selected>Available</option>
+             <option value="Morning">Morning </option>
+             <option value="Evening">Evening </option>
+             <option value="Night">Night </option>
+          </select>
+        <label><b>Specialization</b></label>
+        <input type="text" name="specialization" class="form-control" placeholder="Specialization" required>
+        <label><b>Address</b></label>
+        <input type="text" name="address" class="form-control" placeholder="Address" required>
+        <br>
+        <div class="text-center">
+           <button type="submit" class="btn btn-success rounded-pill w-75">SUBMIT</button>
+        </div>
+
+    </form>
+
+  </div>
+</div>
+{% endblock body %}

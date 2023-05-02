@@ -15,9 +15,9 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary bg-gradient" style="font-family:georgia">
     <div class="container-fluid">
-      <a class="navbar-brand ps-2">Gym Management System</a>
+      <a class="navbar-brand ps-2" >Gym Management System</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       </button>
@@ -30,13 +30,8 @@
           <a class="nav-link active pe-3" aria-current="page" id="nav_home" href="/">Home</a>
           </li>
 
-          <li class="nav-item dropdown">
-          <a class="nav-link active dropdown-toggle pe-3" id="dropdown2" role="button"
-          data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
-           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="/adminsignup">Sign Up</a></li>
-              <li><a class="dropdown-item" href="/adminlogin">Login</a></li>
-           </ul>
+          <li class="nav-item">
+          <a class="nav-link active pe-3" aria-current="page" href="/adminlogin">Admin</a>
           </li>
 
           <li class="nav-item">
@@ -46,27 +41,37 @@
 {% endif %}
 {% if current_user.is_authenticated %}
 
-          <li class="nav-item">
-          <a class="nav-link active pe-3" aria-current="page" href="/members">Members</a>
+          <li class="nav-item dropdown">
+          <a class="nav-link active dropdown-toggle pe-3" id="dropdown2" role="button"
+          data-bs-toggle="dropdown" aria-expanded="false">Members</a>
+           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/addmembers">Add Members</a></li>
+              <li><a class="dropdown-item" href="/viewmembers">View Members</a></li>
+           </ul>
           </li>
 
-          <li class="nav-item">
-          <a class="nav-link active pe-3" aria-current="page" href="/equipments">Equipments</a>
+          <li class="nav-item dropdown">
+          <a class="nav-link active dropdown-toggle pe-3" id="dropdown3" role="button"
+          data-bs-toggle="dropdown" aria-expanded="false">Equipments</a>
+           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/addequipments">Add Equipments</a></li>
+              <li><a class="dropdown-item" href="/viewequipments">View Equipments</a></li>
+           </ul>
           </li>
 
-          <li class="nav-item">
-          <a class="nav-link active pe-3" aria-current="page" href="/trainers">Trainers</a>
-          </li>
-
-          <li class="nav-item">
-          <a class="nav-link active pe-3" aria-current="page" href="/payment">Payments</a>
+          <li class="nav-item dropdown">
+          <a class="nav-link active dropdown-toggle pe-3" id="dropdown4" role="button"
+          data-bs-toggle="dropdown" aria-expanded="false">Trainers</a>
+           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/addtrainers">Add Trainers</a></li>
+              <li><a class="dropdown-item" href="/viewtrainers">View Trainers</a></li>
+           </ul>
           </li>
 
           <li class="nav-item">
           <a class="nav-link active pe-3" aria-current="page" href="/adminlogout">Logout</a>
           </li>
 {% endif %}
-
 
           </ul>
         </div>
