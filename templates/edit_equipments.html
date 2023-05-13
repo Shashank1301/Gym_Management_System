@@ -19,23 +19,32 @@
        {% endwith %}
 
 
-<div class="container d-flex justify-content-center">
-  <div class=" col-md-7 p-5">
-    <h5 class="p-2 bg-success bg-gradient text-center rounded border text-white"; style="font-family:georgia">Update Equipments</h5>
+<div class="container p-5 d-flex justify-content-center">
+  <div class="col-md-8 p-5 rounded bg-secondary bg-gradient text-white border border-dark">
+       <h5 class="p-2 bg-success text-center rounded border border-white"; style="font-family:georgia" >Update Equipments</h5>
     <br>
 
     <form action="/editequipments/{{posts.eid}}" method="post">
-        <label><b>Equipment Name</b></label>
+        <div class="mb-2">
+        <label class="form-label">Equipment Name</label>
         <input type="text" name="equipmentname" class="form-control" placeholder="Equipment" value="{{posts.name}}" required>
-        <label><b>Price(In Rs.)</b></label>
+        </div>
+        <div class="mb-2">
+        <label class="form-label">Price ( In Rs. )</label>
         <input type="text" name="price" class="form-control" placeholder="Price" value="{{posts.price}}" required>
-        <label><b>Unit</b></label>
+        </div>
+        <div class="mb-2">
+        <label class="form-label">Unit</label>
         <input type="text" name="unit" class="form-control" placeholder="Units" value="{{posts.unit}}" required>
-        <label><b>Date Of Purchase</b></label>
+        </div>
+        <div class="mb-2">
+        <label class="form-label">Date Of Purchase</label>
         <input type="date" name="purchasedate" class="form-control" placeholder="Date Of Purchase" value="{{posts.date}}" required>
-        <label><b>Description</b></label>
+        </div>
+        <div class="mb-4">
+        <label class="form-label">Description</label>
         <textarea name="description" class="form-control" placeholder="Add Description" value="{{posts.description}}" required></textarea>
-        <br>
+        </div>
         <div class="text-center">
            <button type="submit" class="btn btn-primary rounded-pill w-75">UPDATE</button>
         </div>

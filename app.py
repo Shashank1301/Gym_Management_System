@@ -23,7 +23,6 @@ db=SQLAlchemy(app)
 class Admin(UserMixin,db.Model):
     id=db.Column(db.Integer,primary_key=True)
     username=db.Column(db.String(50))
-    email=db.Column(db.String(50),unique=True)
     password=db.Column(db.String(1000))
 
 class Members(db.Model):
@@ -61,16 +60,18 @@ def home_page():
 @app.route('/adminlogin', methods=['GET','POST'])
 def admin_login():
     if request.method == "POST":
-       email=request.form.get('loginemail')
+       username=request.form.get('loginusername')
        password = request.form.get('loginpassword')
-       admin=Admin.query.filter_by(email=email).first()
-
-       if admin and check_password_hash(admin.password,password):
-          login_user(admin)
-          flash('Login Success','primary')
-          return redirect(url_for('add_members'))
+       admin=Admin.query.filter_by(username=username).first()
+       if admin.username == 'admin':
+          if check_password_hash(admin.password,password):
+            login_user(admin)
+            flash('Login Success','primary')
+            return redirect(url_for('add_members'))
+          else:
+             flash('Invalid Credentials','danger')
        else:
-           flash('Invalid Credentials','danger')
+           flash('Access Denied', 'warning')
 
     return render_template('admin_login.html')
 

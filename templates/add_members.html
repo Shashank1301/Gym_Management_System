@@ -20,32 +20,45 @@
        {% endif %}
        {% endwith %}
 
-<div class="container d-flex justify-content-center">
-  <div class=" col-md-7 p-5">
-    <h5 class="p-2 bg-primary bg-gradient text-center rounded border text-white"; style="font-family:georgia">Add Members</h5>
+<div class="container p-5 d-flex justify-content-center">
+  <div class="col-md-8 p-5 rounded bg-secondary bg-gradient text-white border border-dark">
+       <h5 class="p-2 bg-primary text-center rounded border border-white"; style="font-family:georgia" >Add Members</h5>
     <br>
 
     <form action="/addmembers" method="post">
-        <label><b>Name</b></label>
+        <div class="mb-2">
+        <label class="form-label">Name</label>
         <input type="text" name="name" class="form-control" placeholder="Name" required>
-        <label><b>Email</b></label>
+        </div>
+        <div class="mb-2">
+        <label class="form-label">Email</label>
         <input type="email" name="email" class="form-control" placeholder="Email" required>
-        <label><b>Contact</b></label>
+        </div>
+        <div class="mb-2">
+        <label class="form-label">Contact</label>
         <input type="text" name="contact" class="form-control" placeholder="Contact" required>
-        <label><b>Age</b></label>
+        </div>
+        <div class="mb-2">
+        <label class="form-label">Age</label>
         <input type="text" name="age" class="form-control" placeholder="Age" required>
-        <label><b>Slot</b></label>
+        </div>
+        <div class="mb-2">
+        <label class="form-label">Slot</label>
           <select class="form-control" id="slot" name="slot" required>
              <option selected>Slot</option>
              <option value="Morning">Morning</option>
              <option value="Evening">Evening</option>
              <option value="Night">Night</option>
           </select>
-        <label><b>Address</b></label>
+        </div>
+        <div class="mb-2">
+        <label class="form-label">Address</label>
         <input type="text" name="address" class="form-control" placeholder="Address" required>
-        <label><b>Date Of Join</b></label>
+        </div>
+        <div class="mb-4">
+        <label class="form-label">Date Of Join</label>
         <input type="date" name="joindate" class="form-control" placeholder="Date Of Join" required>
-        <br>
+        </div>
         <div class="text-center">
            <button type="submit" class="btn btn-success rounded-pill w-75">SUBMIT</button>
         </div>
